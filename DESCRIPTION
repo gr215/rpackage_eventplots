@@ -1,0 +1,4 @@
+Package: plotevents
+Type: Package
+Title: Plots Estimates of multiple Models in Eventstudy-style
+Version: 0.0.1.0
