@@ -25,7 +25,7 @@ plot_matrix <- function(horizon, name_vector, results){
   out1
 }
 
-event_plotter<-function (out,names, separate = FALSE, horizon = NULL) 
+event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = NULL) 
 {
   no_models<- length(names)
   estimators = unique(out$estimator)
@@ -50,8 +50,14 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL)
     out = out[out$term >= horizon[1] & out$term <= horizon[2], 
     ]
   }
+  if (ylimes== NULL){
   y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
   x_lims = c(min(out$term) - 1, max(out$term) + 1)
+  }
+  else {
+    y_limes = c(ylimes[1], ylimes[2]
+    x_lims = c(min(out$term) - 1, max(out$term) + 1)
+            }
   ggplot2::ggplot(data = out, mapping = ggplot2::aes(x = .data$term, 
                                                      y = .data$estimate, color = .data$estimator, ymin = .data$ci_lower, 
                                                      ymax = .data$ci_upper)) + {
