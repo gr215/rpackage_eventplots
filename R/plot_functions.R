@@ -25,7 +25,7 @@ plot_matrix <- function(horizon, name_vector, results){
   out1
 }
 
-event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = NULL) 
+event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y = NULL) 
 {
   no_models<- length(names)
   estimators = unique(out$estimator)
@@ -50,13 +50,8 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
     out = out[out$term >= horizon[1] & out$term <= horizon[2], 
     ]
   }
-  if (is.null(ylimes)){
-    y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
-    x_lims = c(min(out$term) - 1, max(out$term) + 1)
-  }else {
-    y_lims = ylimes
-    x_lims = c(min(out$term) - 1, max(out$term) + 1)
-  }
+  y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
+  x_lims = c(min(out$term) - 1, max(out$term) + 1)
   ggplot2::ggplot(data = out, mapping = ggplot2::aes(x = .data$term, 
                                                      y = .data$estimate, color = .data$estimator, ymin = .data$ci_lower, 
                                                      ymax = .data$ci_upper)) + {
@@ -65,7 +60,6 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
                                                      } + ggplot2::geom_point(position = position) + ggplot2::geom_pointrange(position = position) + 
     ggplot2::geom_vline(xintercept = -0.5, linetype = "dashed") + 
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
-    ggplot2::ylim(y_lims[1], y_lims[2])+
     ggplot2::labs(y = "Point Estimate and 95% Confidence Interval", 
                   x = "Event Time", color = "Estimator") + {
                     if (separate) 
@@ -75,6 +69,6 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
                       ggplot2::scale_x_continuous(limits = x_lims)
                   } + ggplot2::theme_minimal(base_size = 16) + ggplot2::scale_color_manual(values = color_scale) + 
     ggplot2::guides(color = ggplot2::guide_legend(title.position = "top", 
-                                                  nrow = 2)) + ggplot2::theme(legend.position = "bottom")
+                                                  nrow = 2)) + ggplot2::theme(legend.position = "bottom")+
+  ggplot2::ylim(add_y[1],add_y[2])
 }
-
