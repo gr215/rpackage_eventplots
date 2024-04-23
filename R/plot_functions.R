@@ -55,7 +55,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
   x_lims = c(min(out$term) - 1, max(out$term) + 1)
   }
   else {
-    y_limes = c(ylimes[1], ylimes[2]
+    y_limes = c(ylimes[1], ylimes[2])
     x_lims = c(min(out$term) - 1, max(out$term) + 1)
             }
   ggplot2::ggplot(data = out, mapping = ggplot2::aes(x = .data$term, 
