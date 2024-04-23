@@ -51,13 +51,12 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
     ]
   }
   if (is.null(ylimes)){
-  y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
-  x_lims = c(min(out$term) - 1, max(out$term) + 1)
-  }
-  else {
-    y_limes = c(ylimes[1], ylimes[2])
+    y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
     x_lims = c(min(out$term) - 1, max(out$term) + 1)
-            }
+  }else {
+    y_lims = ylimes
+    x_lims = c(min(out$term) - 1, max(out$term) + 1)
+  }
   ggplot2::ggplot(data = out, mapping = ggplot2::aes(x = .data$term, 
                                                      y = .data$estimate, color = .data$estimator, ymin = .data$ci_lower, 
                                                      ymax = .data$ci_upper)) + {
@@ -66,6 +65,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
                                                      } + ggplot2::geom_point(position = position) + ggplot2::geom_pointrange(position = position) + 
     ggplot2::geom_vline(xintercept = -0.5, linetype = "dashed") + 
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
+    ggplot2::ylim(y_lims[1], y_lims[2])+
     ggplot2::labs(y = "Point Estimate and 95% Confidence Interval", 
                   x = "Event Time", color = "Estimator") + {
                     if (separate) 
@@ -77,3 +77,4 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
     ggplot2::guides(color = ggplot2::guide_legend(title.position = "top", 
                                                   nrow = 2)) + ggplot2::theme(legend.position = "bottom")
 }
+
