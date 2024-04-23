@@ -50,7 +50,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL,  ylimes = 
     out = out[out$term >= horizon[1] & out$term <= horizon[2], 
     ]
   }
-  if (is.null(ylimes){
+  if (is.null(ylimes)){
   y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
   x_lims = c(min(out$term) - 1, max(out$term) + 1)
   }
