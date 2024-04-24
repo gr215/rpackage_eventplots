@@ -63,7 +63,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limi
                                                      } + ggplot2::geom_point(position = position) + ggplot2::geom_pointrange(position = position) + 
     ggplot2::geom_vline(xintercept = -0.5, linetype = "dashed") + 
     ggplot2::geom_hline(yintercept = 0, linetype = "dashed") + 
-    ggplot2::labs(y = "Point Estimate and 95% Confidence Interval", 
+    ggplot2::labs(y = "Point Estimate and 95% CI", 
                   x = "Event Time", color = "Estimator") + {
                     if (separate) 
                       ggplot2::scale_y_continuous(limits = y_lims)
