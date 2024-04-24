@@ -25,7 +25,7 @@ plot_matrix <- function(horizon, name_vector, results){
   out1
 }
 
-event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y = NULL) 
+event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limit = NULL, color_pairs = TRUE) 
 {
   no_models<- length(names)
   estimators = unique(out$estimator)
@@ -33,8 +33,10 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y = NU
   levels = levels[levels %in% estimators]
   out$estimator = factor(out$estimator, levels = levels)
   
-  colors <- c("#374E55", "#DF8F44", "#00A1D5", "#AE123A", "#79AF97","#6A6599","#9F3632", "#FF00CC" )
-  
+  if (!color_pairs)
+  {colors <- c("#374E55", "#DF8F44", "#00A1D5", "#AE123A", "#79AF97","#6A6599","#9F3632", "#FF00CC" )}
+  if (color_pairs)
+  {colors <- c( "#B9DDF1","#2A5783","#FFC685","#EA6D20","#B3E0A6","#24693D","#FFBEB2","#AE123A") } 
   color_scale <- list()
   
   for (i in 1:length(names)) {
@@ -70,5 +72,5 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y = NU
                   } + ggplot2::theme_minimal(base_size = 16) + ggplot2::scale_color_manual(values = color_scale) + 
     ggplot2::guides(color = ggplot2::guide_legend(title.position = "top", 
                                                   nrow = 2)) + ggplot2::theme(legend.position = "bottom")+
-  ggplot2::ylim(add_y[1],add_y[2])
+    if (!is.null(add_y_limit)) {ggplot2::ylim(add_y[1],add_y[2])}
 }
