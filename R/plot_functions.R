@@ -47,7 +47,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limi
   out$ci_lower = out$estimate - 1.96 * out$std.error
   out$ci_upper = out$estimate + 1.96 * out$std.error
   
-  position = ggplot2::position_dodge(width = 0.3) #distance between different estimators
+  position = ggplot2::position_dodge(width = 0.5) #distance between different estimators
   if (!is.null(horizon)) {
     out = out[out$term >= horizon[1] & out$term <= horizon[2], 
     ]
