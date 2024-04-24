@@ -72,5 +72,5 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limi
                   } + ggplot2::theme_minimal(base_size = 16) + ggplot2::scale_color_manual(values = color_scale) + 
     ggplot2::guides(color = ggplot2::guide_legend(title.position = "top", 
                                                   nrow = 2)) + ggplot2::theme(legend.position = "bottom")+
-    if (!is.null(add_y_limit)) {ggplot2::ylim(add_y[1],add_y[2])}
+    if (!is.null(add_y_limit)) {ggplot2::ylim(add_y_limit[1],add_y_limit[2])}
 }
