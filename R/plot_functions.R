@@ -55,6 +55,7 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limi
   }
   y_lims = c(min(out$ci_lower), max(out$ci_upper)) * 1.05
   x_lims = c(min(out$term) - 1, max(out$term) + 1)
+  title1 <- eval(title)
   ggplot2::ggplot(data = out, mapping = ggplot2::aes(x = .data$term, 
                                                      y = .data$estimate, color = .data$estimator, ymin = .data$ci_lower, 
                                                      ymax = .data$ci_upper)) + {
@@ -74,5 +75,5 @@ event_plotter<-function (out,names, separate = FALSE, horizon = NULL, add_y_limi
     ggplot2::guides(color = ggplot2::guide_legend(title.position = "top", 
                                                   nrow = 2)) + ggplot2::theme(legend.position = "bottom")+
     {if (!is.null(add_y_limit)) {ggplot2::ylim(add_y_limit[1],add_y_limit[2])}}+
-    {if (!is.null(title)){ggplot2::ggtitle(substitute(title))}}
+    {if (!is.null(title)){ggplot2::ggtitle(substitute(title1))}}
 }
