@@ -1,4 +1,6 @@
-
+# results input for plot_matrix function should be a list with the eventstudy results
+# one list entry for each model
+# the results for each model should be stored in a no_years*2 matrix; first column estimates, second column se 
 plot_matrix <- function(horizon, name_vector, results){
   no_years<-abs(horizon[1])+horizon[2]+1
   no_models<-length(name_vector)
